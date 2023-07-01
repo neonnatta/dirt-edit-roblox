@@ -540,7 +540,7 @@
             if PlayerList then
                 options.list = {}
                 for a,b in pairs(game:GetService("Players"):GetChildren()) do
-                    options.list[a] = b.Name;
+                    options.list[a] = b.DisplayName;
                 end
             elseif type(options.list) ~= "table" then
                 options.list = options.list:GetChildren()
@@ -669,7 +669,7 @@
                                 if PlayerList then
                                     options.list = {}
                                     for a,b in pairs(game:GetService("Players"):GetChildren()) do
-                                        options.list[a] = b.Name
+                                        options.list[a] = b.DisplayName
                                     end
                                 end
                             end)
@@ -697,7 +697,7 @@
                         if PlayerList then
                             options.list = {}
                             for a,b in pairs(game:GetService("Players"):GetChildren()) do
-                                options.list[a] = b.Name
+                                options.list[a] = b.DisplayName
                             end
                         end
                     end
