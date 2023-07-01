@@ -1,0 +1,51 @@
+local Lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/dirt",true))()
+local Table = {}
+local window = Lib:CreateWindow("SANDSHARK-Gui")
+function notify(tx,ti) game:GetService("StarterGui"):SetCore("SendNotification",{Title = ti,Text = tx}) end
+function spellchat(msg) game:GetService("Players"):Chat(msg) end
+window:Section("Main")
+list_of_spells={"defodio","deletrius","expelliarmus","expulso","vulnera sanentur"}
+for i,v in list_of_spells do
+window:Button(v,function() spellchat(v) end)
+end
+window:Section("Loopkilling")
+local target=nil
+spell=nil
+window:Dropdown("Spell:",{location = Table,flag = "Dropdown",search = true, list = {"deletrius","silencio","incarcerous","obscuro","defodio"} --[[Wont work when PlayerList = true]], PlayerList = false --[[ Turns the list into the players in the server ]]},function()
+   spell=Table["Dropdown"]
+end)
+window:Dropdown("Select Player:",{location = Table,flag = "Dropdown",search = true --[[AddsSearchBar]], list = {"1","2","3","4","5","6","7","8","9","0"} --[[Wont work when PlayerList = true]], PlayerList = true --[[ Turns the list into the players in the server ]]},function()
+   target=Table["Dropdown"]
+end)
+
+window:Toggle("Loopkilling",{location = Table, flag = "Toggle"},function()
+   local toggle=Table["Toggle"]
+   while toggle do
+   	if target==nil then
+   		notify("No Target!","No Player selected to loopkill.")
+   		break
+   	else
+   		if spell == nil then
+	   		notify("No Spell!", "No Spell selected for loopkill.")
+	   		break
+   		else
+   			local victim = game.Players:WaitForChild(target)
+		   	spellchat(spell)
+		   	local args = {
+				[1] = {
+					["hitCf"] = CFrame.new(482.127686, 48.6292076, -842.234131, 0.648395956, -0.084424682, 0.756607711, -3.7252903e-09, 0.993832231, 0.110894926, -0.761303365, -0.0719038248, 0.644396722),
+					["hitPart"] = game:GetService("Players"):WaitForChild(victim.Name).Character.Head,
+					["id"] = "Neonnatta3241.94168176874518",
+			        ["distance"] = 5.870199848223145,
+					["actor"] = workspace:WaitForChild(victim.Name),
+					["spellName"] = spell
+				}
+			}
+					
+			game:GetService("InsertService"):WaitForChild("Events"):WaitForChild("spellHit"):FireServer(unpack(args))
+    
+		   	wait(1)
+		end
+	end
+   end
+end)
